@@ -14,3 +14,23 @@ services:
     ports:
       - 8083:8083
     restart: unless-stopped
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - URL=computerlab.io
+      - SUBDOMAINS=library,
+      - VALIDATION=http
+      - EMAIL=patrick@computerlab.io
+      - ONLY_SUBDOMAINS=true
+    volumes:
+      - ./letsencrypt-config:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
