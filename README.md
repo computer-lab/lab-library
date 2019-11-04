@@ -36,5 +36,4 @@ set up gdrive sync: follow instructions here: https://github.com/janeczku/calibr
 
 
 
-
-
+email setup: using gmail SMTP relay
