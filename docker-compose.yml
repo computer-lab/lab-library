@@ -12,7 +12,6 @@ services:
       - type: bind
         source: ./dropbox
         target: /dropbox
-        bind-propagation: shared
       - type: bind
         source: ./config
         target: /config
