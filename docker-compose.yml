@@ -9,12 +9,8 @@ services:
       - TZ=America/New_York
       - DOCKER_MODS=linuxserver/calibre-web:calibre
     volumes:
-      - type: bind
-        source: ./dropbox
-        target: /dropbox
-      - type: bind
-        source: ./config
-        target: /config
+      - ./kbfs:/kbfs:shared
+      - ./config:/config
     ports:
       - 8083:8083
     restart: always
@@ -38,16 +34,25 @@ services:
       - 443:443
       - 80:80 #optional
     restart: always
-  dropbox:
-    container_name: dropbox
-    image: rbonghi/dropbox:latest
-    command: ["--fromDropbox"]
+  keybase:
+    image: waldner/keybase:2
+    container_name: keybase
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - "/dev/fuse:/dev/fuse"
+    security_opt:
+      - "apparmor:unconfined"
     environment:
-      DROPBOX_TOKEN: "${DROPBOX_APP_TOKEN}"
-      PYTHONUNBUFFERED: 1
-    volumes:
-      - type: bind
-        source: ./dropbox
-        target: /dropbox
+      - KEYBASE_ALLOW_ROOT=1
+      - KEYBASE_USER=${KEYBASE_USER}
+      - KEYBASE_PAPERKEY=${KEYBASE_PAPERKEY}
+      - KEYBASE_KBFS_MOUNT=/kbfs
+      - UID=1000
+      - TZ=America/New_York
     restart: always
+    volumes:
+    volumes:
+      - ./kbfs:/kbfs:shared
+
 
