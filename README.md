@@ -1,5 +1,7 @@
 # Setting Up Calibre Web
 
+### DAY 1
+
 use stateless service like fargate? kinda good to do on AWS because I already
 have the domain there
 
@@ -37,3 +39,11 @@ set up gdrive sync: follow instructions here: https://github.com/janeczku/calibr
 
 
 email setup: using gmail SMTP relay
+
+## DAY 2
+
+the google drive integration seems kinda buggy, cover images load slowly, and I
+like being able to access files directly on dropbox
+
+create dropbox app, add dropbox_app_token.txt
+also this is much more limited data access

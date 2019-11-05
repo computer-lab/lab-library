@@ -1,4 +1,4 @@
-version: "2"
+version: "3.1"
 services:
   calibre-web:
     image: linuxserver/calibre-web
@@ -13,7 +13,7 @@ services:
       - ./books:/books
     ports:
       - 8083:8083
-    restart: unless-stopped
+    restart: always
   letsencrypt:
     image: linuxserver/letsencrypt
     container_name: letsencrypt
@@ -33,4 +33,15 @@ services:
     ports:
       - 443:443
       - 80:80 #optional
-    restart: unless-stopped
+    restart: always
+  dropbox:
+    container_name: dropbox
+    image: rbonghi/dropbox:latest
+    command: ["--fromDropbox"]
+    environment:
+      DROPBOX_TOKEN: "${DROPBOX_APP_TOKEN}"
+      PYTHONUNBUFFERED: 1
+    volumes:
+      - ./books:/books
+    restart: always
+
