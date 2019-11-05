@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.2"
 services:
   calibre-web:
     image: linuxserver/calibre-web
@@ -9,8 +9,13 @@ services:
       - TZ=America/New_York
       - DOCKER_MODS=linuxserver/calibre-web:calibre
     volumes:
-      - ./config:/config
-      - ./books:/books
+      - type: bind
+        source: ./dropbox
+        target: /dropbox
+        bind-propagation: shared
+      - type: bind
+        source: ./config
+        target: /config
     ports:
       - 8083:8083
     restart: always
@@ -42,6 +47,8 @@ services:
       DROPBOX_TOKEN: "${DROPBOX_APP_TOKEN}"
       PYTHONUNBUFFERED: 1
     volumes:
-      - ./books:/books
+      - type: bind
+        source: ./dropbox
+        target: /dropbox
     restart: always
 
