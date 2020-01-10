@@ -56,3 +56,15 @@ work.
 The first problem I ran into was the lack of a install script / binary for
 `docker-compose` on arm7l. I had to create a virtualenv and install
 docker-compose via pip to get it to work.
+
+Then, I looked at the calibre-web docker image and, while they supported arm,
+the convert function only works on x86. This, and the effort that I anticipated
+modifying the Keybase image to work on arm, inspired me to look for an x86
+platform for the library.
+
+After considering ordering a [$35 Intel Compute Stick](https://www.pcgamer.com/the-original-intel-compute-stick-is-just-dollar35-right-now/),
+I looked around my office and noticed a Chromebook that Google Cloud Platform
+had sent as a promotion. Was it an x86book? It is!
+
+
+### Setup on Chromebook

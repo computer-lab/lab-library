@@ -6,33 +6,13 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/New_York
+      - TZ=${TZ}
       - DOCKER_MODS=linuxserver/calibre-web:calibre
     volumes:
       - ./kbfs:/kbfs:shared
       - ./config:/config
     ports:
       - 8083:8083
-    restart: always
-  letsencrypt:
-    image: linuxserver/letsencrypt
-    container_name: letsencrypt
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/New_York
-      - URL=computerlab.io
-      - SUBDOMAINS=library,
-      - VALIDATION=http
-      - EMAIL=patrick@computerlab.io
-      - ONLY_SUBDOMAINS=true
-    volumes:
-      - ./letsencrypt-config:/config
-    ports:
-      - 443:443
-      - 80:80 #optional
     restart: always
   keybase:
     image: waldner/keybase:2
@@ -49,10 +29,38 @@ services:
       - KEYBASE_PAPERKEY=${KEYBASE_PAPERKEY}
       - KEYBASE_KBFS_MOUNT=/kbfs
       - UID=1000
-      - TZ=America/New_York
+      - TZ=${TZ}
     restart: always
     volumes:
     volumes:
       - ./kbfs:/kbfs:shared
-
-
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - URL=${DOMAIN}
+      - SUBDOMAINS=${SUBDOMAINS}
+      - VALIDATION=http
+      - EMAIL=patrick@computerlab.io
+      - ONLY_SUBDOMAINS=true
+    volumes:
+      - ./letsencrypt-config:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: always
+  duckdns:
+    image: linuxserver/duckdns
+    container_name: duckdns
+    environment:
+      - PUID=1000 #optional
+      - PGID=1000 #optional
+      - TZ=${TZ}
+      - SUBDOMAINS=${SUBDOMAINS}
+      - TOKEN=${DUCKDNS_TOKEN}
+    restart: always
