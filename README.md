@@ -12,7 +12,7 @@ Solution: just make a ec2 instance and wing it installing docker.
 - associate it with a elastic ip
 - open ports 80, 433, and 8083
 
-Try it out locally first, commit this git repo and pull it to the ECS server.
+Try it out locally first, commit this git repo and pull it to the EC2 server.
 
 Follow instructions [here](https://docs.mattermost.com/install/prod-docker.html)
 for docker and docker-compose setup on host, then run `docker-compose up` in
@@ -42,9 +42,17 @@ there's also the added bonus of the files being encrypted, and streamed to the
 device on request. This would allow hundreds of gigabytes to be "stored" on a
 device with limited disk space.
 
+#### Note on KBFS mount (from keybase-kbfs-docker repo README)
+
+If you're exporting the KBFS mount back to the host and the container crashes
+without cleaning up, you might have to manually umount (ie `fusermount -u
+/home/you/kbfs`) the host mount point.
 
 One of the features of calibre-web is being able to email epubs to your kindle.
 I set up email using email setup: using gmail SMTP relay.
+This ended up breaking on reboot.
+
+https://support.google.com/a/answer/2956491?hl=en
 
 ### Setup on Raspberry Pi
 

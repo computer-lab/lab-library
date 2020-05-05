@@ -43,24 +43,14 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - URL=${DOMAIN}
+      - URL=${URL}
       - SUBDOMAINS=${SUBDOMAINS}
       - VALIDATION=http
-      - EMAIL=patrick@computerlab.io
+      - EMAIL={EMAIL}
       - ONLY_SUBDOMAINS=true
     volumes:
       - ./letsencrypt-config:/config
     ports:
       - 443:443
       - 80:80 #optional
-    restart: always
-  duckdns:
-    image: linuxserver/duckdns
-    container_name: duckdns
-    environment:
-      - PUID=1000 #optional
-      - PGID=1000 #optional
-      - TZ=${TZ}
-      - SUBDOMAINS=${SUBDOMAINS}
-      - TOKEN=${DUCKDNS_TOKEN}
     restart: always
