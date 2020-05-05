@@ -1,5 +1,21 @@
 # Setting Up Calibre Web
 
+## How to Run
+
+1. ssh into library server
+
+2. install docker, clone repo, scp .env file into repo directory
+
+3. `docker-compose up -d`
+
+4. set up letsencrypt to work with calibre-web:
+    - `cp ./letsencrypt-config/nginx/proxy-confs/calibre-web.subdomain.conf.sample ./letsencrypt-config/nginx/proxy-confs/calibre-web.subdomain.conf`
+    - modify `./letsencrypt-config/nginx/site-confs/default` to use the subdomain conf, comment out main server block
+
+5. to update: `docker-compose pull`
+
+## Notes
+
 ### Cloud Setup
 
 I wanted to use a stateless platform as a service (ex: Fargate on AWS) but I've
