@@ -1,6 +1,8 @@
 # Setting Up Calibre Web
 
-## How to Run
+## Current Admin Setup Notes
+
+0. Get ssh key and .env file from Computer Lab Monitor
 
 1. ssh into library server
 
@@ -14,7 +16,14 @@
 
 5. to update: `docker-compose pull`
 
-## Notes
+6. If the keybase service doesn't gracefully stop, you may get an error when starting the service again.
+To fix, manually umount the host mount point. See "Caveats" [here](https://github.com/waldner/keybase-kbfs-docker).
+
+```
+fusermount -u /home/ubuntu/lab-library/kbfs
+```
+
+## Old Notes
 
 ### Cloud Setup
 
@@ -70,6 +79,8 @@ This ended up breaking on reboot.
 
 https://support.google.com/a/answer/2956491?hl=en
 
+## Old Notes
+
 ### Setup on Raspberry Pi
 
 In making my docker setup, I stupidly failed to consider the fact that the
@@ -92,3 +103,5 @@ had sent as a promotion. Was it an x86book? It is!
 
 
 ### Setup on Chromebook
+
+
